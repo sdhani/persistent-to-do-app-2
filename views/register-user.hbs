@@ -1,0 +1,18 @@
+{{!-- views/register-user.hbs --}}
+
+{{!-- Nav Bar --}}
+<div style="color:#53C67D;">
+  <a href="/">Home</a> <br>
+  <a href="/login">Login</a> <br>
+  <a href="/logout">Logout</a> <br>
+  <a href="/register">Register Here!</a> <br>
+</div>
+
+<h1>Register</h1>
+<p>{{message}}</p>
+
+<form method="POST" action="/register">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username"/>
+  <input type="submit"/>
+</form>

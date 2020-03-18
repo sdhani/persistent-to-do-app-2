@@ -1,0 +1,55 @@
+{{!-- views/todo.hbs --}}
+
+{{!-- Nav Bar --}}
+<div style="color:#53C67D;">
+  <a href="/">Home</a> <br>
+  <a href="/login">Login</a> <br>
+  <a href="/logout">Logout</a> <br>
+  <a href="/register">Register Here!</a> <br>
+  <h1>{{username}} To Do List:</h1>
+</div>
+
+<p>{{message}}</p>
+
+{{!-- ADD NEW TO-DO ITEM --}}
+<form method="POST" action="/todo">
+  <label for="content"><h3>Add New To-Do:</h3></label>
+  <input type="text" id="content" name="content"/>
+  <input type="submit"/>
+</form>
+
+{{!-- Display To-Do List --}}
+<ul>
+  {{#each todoList}} 
+    <p>__________________________________________________________________</p>
+    
+    {{!-- Item Info --}}
+    <li>
+      <h3>{{content}}  #{{id}}  ||  <span style="color:purple;">Done: <em>{{completed}}</em></span> </h3>
+    </li>
+
+    {{!-- UPDATE COMPLETED STATUS --}}
+    <form method="POST" action="/todo/{{id}}/update">
+      <label for="status"><b>Completed?</b></label>
+      <select id="status" name="status">
+        <option name="true" value="true">DONE</option>
+        <option name="false" value="false">NOPE</option>
+      </select>
+      <input type="submit" value="Save Changes"/>
+    </form>
+
+    {{!-- DELETE ITEM --}}
+    <form method="POST" action="/todo/{{id}}/delete">
+      <label for="delete"><b>Delete?     </b></label>
+      <input id="delete" type="submit" value="Delete Item"/>
+    </form>
+
+    {{!-- EDIT CONTENT --}}
+    <form method="POST"action="/todo/{{id}}/update">
+      <label for="edit"><b>Edit Content:</b></label>
+      <input type="text" id="edit" name="edit"/>
+      <input type="submit" value="Save Changes"/>
+    </form>
+  {{/each}}
+</ul>
+
