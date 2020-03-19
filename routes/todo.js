@@ -1,41 +1,38 @@
 /* routes/todo.js */
-const Router = require("express").Router();
-const axios = require("axios");
-const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
+
+const Router = require("express").Router();
+const queries = require('../db/todo');
+
+function validUser(username) {
+	const hasUsername = typeof username == 'string' && username.trim() != '';
+	return hasUsername;  
+}
 
 /* GET To-Do List */
 Router.get('/', async (req, res) => {
-	const { Authentication, Username } = req.cookies;
-	try {
-		const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
-			headers: {
-				Cookie: `token=${Authentication}, username=${Username}`
-			}
-		});
-		res.status(200).render('todo', { todoList: response.data.filter((item) => !item.deleted), username: Username });
-	}
-	catch (err) { 
-		if(Authentication !== undefined){
-			res.render('todo', {	message: ':O Oh no, you have nothing to-do! Add something to-do below.'}); 
-		}else{
+	const { Username } = req.cookies;
+		if(validUser(Username)){
+			queries.getAllUserTodos(Username).then(todos => {
+				if(todos !== []){
+					res.status(200).render('todo', { todoList: todos.filter((item) => !item.deleted), username: Username });
+				}else {
+					res.render('todo', {	message: ':O Oh no, you have nothing to-do! Add something to-do below.'}); 
+				}
+			});
+		}else {
 			res.render('todo', { message: 'Tsk Tsk Tsk. It looks like your not signed in. Please sign in OR register.'}); 
 		}
-	}
 });
+
 
 
 /* POST New Todo-Item */
 Router.post('/', async(req, res) => {
-	const { Authentication } = req.cookies;
+	const { Username } = req.cookies;
 	const { content } = req.body;
 	try {
-		await axios.post(`${TODO_API_URL}/todo-item`, { content }, {
-			headers: {
-				Cookie: `token=${Authentication}`
-			}
-		});
-		res.status(200).redirect('/todo');
+		// queries.createNewTodo(Username, content).then(res.status(200).redirect('/todo'));
 	}
 	catch (err) { res.render('todo', { message: 'Tsk Tsk Tsk. It looks like your not signed in. Please sign in OR register.'});  }
 });
