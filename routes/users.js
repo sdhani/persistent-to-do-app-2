@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+/* routes/users.js */
+const Router = require("express").Router();
+const queries = require('../db/queries');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+
+/* GET all users on server */
+Router.get("/", async (req, res) => {
+	try {
+		queries.getAllUsers().then(users => {
+			res.status(200).render('user-list', { users: users });
+		});
+	}
+  catch(err) { console.log(err); }
 });
 
-module.exports = router;
+
+module.exports = Router; /* export Router */
