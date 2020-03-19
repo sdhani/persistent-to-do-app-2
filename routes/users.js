@@ -1,6 +1,6 @@
 /* routes/users.js */
 const Router = require("express").Router();
-const queries = require('../db/queries');
+const queries = require('../db/users');
 
 
 /* GET all users on server */
