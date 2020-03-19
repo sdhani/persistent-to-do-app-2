@@ -1,7 +1,8 @@
 /* routes/login.js */
+
+
 const Router = require("express").Router();
-const axios = require("axios");
-const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
+const queries = require('../db/users');
 
 
 /* GET Login Page */
@@ -14,15 +15,16 @@ Router.get('/', async (req, res) => {
 /* POST Login User */
 Router.post('/', async (req, res) => {
   const { username } = req.body;
-  try{
-    const userToken = await axios.post(`${TODO_API_URL}/auth`, { username });    
-    res.cookie('Authentication', userToken.data.token, { httpOnly: true });
-    res.cookie('Username', username, { httpOnly: true });
-    res.status(200).redirect('/todo');
-  }
-  catch (err) { 
-    res.status(400).render('login', { message: 'User does not exist. Please register user OR log in as a different user.' });
-  }
+
+  /* Does User Exist? */
+  queries.loginUser(username).then(response => {
+    if(response !== -1){
+      res.cookie('Username', username, { httpOnly: true });
+      res.status(200).redirect('/todo');
+    } else { /* User does not exist */
+      res.status(400).render('login', { message: 'User does not exist. Please register user OR log in as a different user.' });
+    }
+  });
 });
 
 
