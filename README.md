@@ -2,12 +2,8 @@
 
 :pencil::star2: A web application that keep's track of a specific user's to-do list even after refreshing the page or making changes to the list. 
 
----
-
 ## Hosted on Heroku
 This project is hosted on Heroku at [Persistent-To-Do-App](https://crud-persistent-todo2.herokuapp.com)
-
----
 
 ## Want to run the code instead?
 #### Install Instructions
@@ -30,6 +26,13 @@ This project is hosted on Heroku at [Persistent-To-Do-App](https://crud-persiste
 
 ---
 
+## Interacting with Existing Data:
+1. Hit this endpoint to see existing users in the PostgreSQL database.
+`https://crud-persistent-todo2.herokuapp.com/users`
+1. Login as BUBBLES for a test spin, or create a new user :sparkles:.
+
+---
+
 ## Entity Relationship Diagrams
 
 ### users
@@ -48,11 +51,3 @@ This project is hosted on Heroku at [Persistent-To-Do-App](https://crud-persiste
 |   | completed | boolean not null default false | 
 |   | deleted | boolean not null default false | 
 |  FK | user_id | integer references id in users | 
-
-
----
-
-# Interacting with Existing Data:
-1. Hit this endpoint to see existing users in the PostgreSQL database.
-`https://crud-persistent-todo2.herokuapp.com/users`
-1. Login as BUBBLES for a test spin, or create a new user :sparkles:.
