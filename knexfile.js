@@ -2,7 +2,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://postgres:postgres@localhost/persistent-todo'
+    connection: process.env.DATABASE_URL
   },
 
   production: {
