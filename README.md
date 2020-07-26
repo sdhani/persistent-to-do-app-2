@@ -29,7 +29,7 @@ This project is hosted on Heroku at [Persistent-To-Do-App](https://crud-persiste
 
 ## Interacting with Existing Data:
 1. Hit this endpoint to see existing users in the PostgreSQL database.
-`https://crud-persistent-todo2.herokuapp.com/users`
+[`https://crud-persistent-todo2.herokuapp.com/users`](https://crud-persistent-todo2.herokuapp.com/users).
 1. Login as BUBBLES for a test spin, or create a new user :sparkles:.
 
 
